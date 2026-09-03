@@ -1,0 +1,60 @@
+name: Playwright & Evinced Accessibility Tests
+
+on:
+  push:
+    branches:
+      - '**' # Triggers on each new commit to any branch
+  pull_request:
+    branches:
+      - '**'
+
+jobs:
+  accessibility-tests:
+    name: Run Evinced A11y Suite
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Configure JFrog Artifactory Authentication
+        run: |
+          echo "@evinced:registry=https://evinced.jfrog.io/artifactory/api/npm/restricted-npm/" > .npmrc
+          echo "//evinced.jfrog.io/artifactory/api/npm/restricted-npm/:_authToken=${{ secrets.EVINCED_JFROG_AUTH_TOKEN }}" >> .npmrc
+          echo "//evinced.jfrog.io/artifactory/api/npm/restricted-npm/:always-auth=true" >> .npmrc
+
+      - name: Install NPM Dependencies
+        run: npm install
+
+      - name: Install Playwright Browsers & OS Dependencies
+        run: npx playwright install --with-deps chromium
+
+      - name: Run Playwright Tests with Evinced Engine
+        env:
+          EVINCED_SERVICE_ID: ${{ secrets.EVINCED_SERVICE_ID }}
+          EVINCED_API_KEY: ${{ secrets.EVINCED_API_KEY }}
+          BASE_URL: 'https://a11y-audits.com'
+        run: npm test
+
+      - name: Upload Evinced HTML Reports & Screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: evinced-accessibility-reports
+          path: reports/
+          retention-days: 30
+
+      - name: Upload Playwright Test Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-test-results
+          path: playwright-report/
+          retention-days: 14

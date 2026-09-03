@@ -1,0 +1,13 @@
+{
+  "scan": {
+    "screenshots": {
+      "enabled": true
+    }
+  },
+  "report": {
+    "format": "html"
+  },
+  "logging": {
+    "level": "info"
+  }
+}

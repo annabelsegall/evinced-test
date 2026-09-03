@@ -1,0 +1,21 @@
+# Dependencies
+node_modules/
+
+# Local tools
+.tools/
+
+# Environment and sensitive keys
+.env
+.npmrc
+
+# Playwright artifacts
+test-results/
+playwright-report/
+playwright/.cache/
+
+# Evinced Reports output directory (can be preserved or ignored)
+# reports/
+
+# OS files
+.DS_Store
+Thumbs.db
