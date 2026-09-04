@@ -12,3 +12,14 @@ The entry.mdc file contains:
 ## When to use
 
 When the user asks about accessibility testing, WCAG compliance, ARIA attributes, Evinced SDK usage, or accessibility reports or scans, read the entry point file listed under Context.
+
+## Capabilities
+
+- Set up the Evinced SDK in Playwright projects
+- Write accessibility tests using `evAnalyze`, `evStart`, `evStop`
+- Configure accessibility rules and scopes
+- Generate HTML, JSON, SARIF, or CSV reports
+- Configure the SDK — proxy, screenshots, iframes, and `evConfig.json`
+- Enable and tune SDK logging and log levels
+- Control SDK toggles — kill switch, analytics opt-out, and mock engine
+- Integrate accessibility checks into CI/CD pipelines

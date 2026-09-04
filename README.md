@@ -167,38 +167,7 @@ To solve this, we leverage the **Official Evinced AI Skills** bundled inside `@e
 
 As documented in the official [Evinced Playwright JS SDK Documentation](https://developer.evinced.com/sdks-for-web-apps/playwright-js-sdk#ai-skills), the `@evinced/js-playwright-sdk` package ships with built-in AI agent skills.
 
-This repository activates them directly in [AGENTS.md](file:///Users/annabelsegall/Documents/Antigravity/Evinced/AGENTS.md):
-
-```markdown
-## Context
-
-Before working on any accessibility testing task, always read:
-
-`node_modules/@evinced/js-playwright-sdk/evinced-ai/entry.mdc`
-
-The entry.mdc file contains:
-- Integration rules for the Evinced Playwright JS SDK
-- Skills for setup, test writing, configuration, reporting, and logging
-- Links to detailed documentation for each task type
-
-## When to use
-
-When the user asks about accessibility testing, WCAG compliance, ARIA attributes, Evinced SDK usage, or accessibility reports or scans, read the entry point file listed under Context.
-```
-
-#### Bundled Skills Catalog (`node_modules/@evinced/js-playwright-sdk/evinced-ai/skills/`):
-| Skill | Description |
-| :--- | :--- |
-| `write-accessibility-test` | Guides writing `evAnalyze` snapshot or `evStart`/`evStop` continuous tests |
-| `configure-accessibility-rules` | Customizes axe-core rules, scoping to DOM subtrees, and screenshot settings |
-| `generate-accessibility-report` | Exports HTML/JSON/SARIF reports and configures aggregated reporters |
-| `configure-sdk` | Manages unified `evConfig.json` defaults, proxies, and engine toggles |
-| `baseline-comparison` | Compares scans against baselines, detects regressions, and gates CI on severity |
-| `evinced-setup` | First-time installation, credentials authentication, and Playwright wiring |
-
-*(For Cursor users, a symlink is provided at `.cursor/rules/evinced-ai.mdc` pointing to `node_modules/@evinced/js-playwright-sdk/evinced-ai/entry.mdc`)*.
-
----
+This repository activates them directly in [AGENTS.md](file:///Users/annabelsegall/Documents/Antigravity/Evinced/AGENTS.md), allowing AI coding assistants to use the SDK without needing to know the specific API calls, configuration options, or file export patterns.
 
 ### ⚡ 2. The Golden Rule for Developers: Zero Boilerplate Fixture
 
@@ -214,7 +183,6 @@ test('Search products and checkout', async ({ page }) => {
   await page.keyboard.press('Enter');
   await expect(page.locator('.product-grid')).toBeVisible();
 
-  // That's it!
   // - Evinced continuous scanning is started automatically before the test.
   // - All DOM mutations across user clicks and modals are audited.
   // - An HTML report is saved to reports/scale-suite/.
@@ -225,7 +193,7 @@ test('Search products and checkout', async ({ page }) => {
 
 ---
 
-### 🏛️ 3. The 4 Pillars of Scaling Evinced
+### 🏛️ 3. 4 Ideas for Evinced at Scale
 
 #### 1. Custom Playwright Test Fixture (`fixtures/evinced-fixture.js`)
 Instead of duplicating SDK orchestration code across test suites:
