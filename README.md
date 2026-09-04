@@ -122,7 +122,7 @@ await setCredentials({
 
 Visual context is essential for developers and design teams to identify and remediate accessibility issues quickly.
 
-Screenshots are enabled at two levels:
+Screenshots can be enabled at two levels:
 1. **Global Configuration ([evConfig.json](file:///Users/annabelsegall/Documents/Antigravity/Evinced/evConfig.json))**:
    ```json
    {
@@ -132,17 +132,14 @@ Screenshots are enabled at two levels:
        }
      },
      "report": {
-       "includeScreenshots": true,
        "format": "html"
      },
-     "enableScreenshots": true
    }
    ```
 2. **Per-Command Scan Configuration**:
    ```javascript
    await evincedService.evStart({
      scan: { screenshots: { enabled: true } },
-     enableScreenshots: true
    });
    ```
 
@@ -220,7 +217,7 @@ test('Search products and checkout', async ({ page }) => {
   // That's it!
   // - Evinced continuous scanning is started automatically before the test.
   // - All DOM mutations across user clicks and modals are audited.
-  // - An HTML report with embedded screenshots is saved to reports/scale-suite/.
+  // - An HTML report is saved to reports/scale-suite/.
   // - The report is attached directly to Playwright CI artifacts.
   // - The quality gate fails the test if accessibility defects are discovered.
 });
@@ -233,7 +230,7 @@ test('Search products and checkout', async ({ page }) => {
 #### 1. Custom Playwright Test Fixture (`fixtures/evinced-fixture.js`)
 Instead of duplicating SDK orchestration code across test suites:
 - Hooks into Playwright's test lifecycle (`beforeEach` and `afterEach`).
-- Automatically starts `evStart({ scan: { screenshots: { enabled: true } } })`.
+- Automatically starts `evStart()`.
 - Collects all issues via `evStop()` and automatically writes unique reports to `reports/scale-suite/<test_name>.html`.
 - Attaches reports to Playwright's native test runner output (`testInfo.attach`).
 

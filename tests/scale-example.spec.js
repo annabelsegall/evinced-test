@@ -7,7 +7,7 @@ const { test, expect } = require('../fixtures/evinced-fixture');
  * - The developer does NOT need to import EvincedSDK or configure anything manually.
  * - The fixture automatically activates evStart() before the test.
  * - The fixture automatically executes evStop() after the test.
- * - The fixture automatically exports the HTML report with screenshots to reports/scale-suite/
+ * - The fixture automatically exports the HTML report to reports/scale-suite/
  * - The fixture attaches the report to Playwright's test report for CI visibility.
  */
 test.describe('Scalable Enterprise Tests with Evinced Fixture', () => {
@@ -38,11 +38,11 @@ test.describe('Scalable Enterprise Tests with Evinced Fixture', () => {
 
   test('Browse collections navigation flow', async ({ page, evinced }) => {
     await page.goto('/');
-    
+
     // Browse through navigation links
     const navLinks = page.locator('header nav a, .header__inline-menu a');
     const count = await navLinks.count();
-    
+
     if (count > 0) {
       const firstLink = navLinks.first();
       const href = await firstLink.getAttribute('href');

@@ -28,14 +28,15 @@ exports.test = base.extend({
   evinced: async ({ page, evincedAutoScan, evincedThresholds }, use, testInfo) => {
     const evincedService = new EvincedSDK(page);
     const reportsDir = path.resolve(process.cwd(), 'reports', 'scale-suite');
-    
+
     if (!fs.existsSync(reportsDir)) {
       fs.mkdirSync(reportsDir, { recursive: true });
     }
 
+    // disable screenshots for performance reasons, we don't need them on EVERY test
     const scanConfig = {
       scan: {
-        screenshots: { enabled: true }
+        screenshots: { enabled: false }
       },
     };
 
