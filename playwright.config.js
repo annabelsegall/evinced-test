@@ -4,7 +4,7 @@ require('dotenv').config();
 module.exports = defineConfig({
   testDir: './tests',
   /* Timeout per test */
-  timeout: 60000,
+  timeout: 30000,
   expect: {
     timeout: 10000,
   },
@@ -20,13 +20,13 @@ module.exports = defineConfig({
   globalSetup: require.resolve('./global-setup'),
 
   use: {
-    baseURL: process.env.BASE_URL || 'https://a11y-audits.com',
+    baseURL: process.env.BASE_URL,
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
-    video: 'retain-on-failure',
+    video: 'off',
     viewport: { width: 1280, height: 720 },
-    actionTimeout: 15000,
-    navigationTimeout: 30000,
+    actionTimeout: 10000,
+    navigationTimeout: 10000,
   },
 
   projects: [

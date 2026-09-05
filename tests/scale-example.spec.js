@@ -12,45 +12,35 @@ const { test, expect } = require('../fixtures/evinced-fixture');
  */
 test.describe('Scalable Enterprise Tests with Evinced Fixture', () => {
 
-  test('Search products and verify catalog accessibility', async ({ page, evinced }) => {
+  test('Book a consultation', async ({ page, evinced }) => {
     // 1. Navigate to home
     await page.goto('/');
     await expect(page).toHaveTitle(/Love & Minter/i);
 
-    // 2. Perform search interaction
-    const searchButton = page.locator('a[href*="/search"], button[aria-label*="Search"], [class*="search"]').first();
-    if (await searchButton.isVisible()) {
-      await searchButton.click();
-      const searchInput = page.locator('input[type="search"], input[name="q"]').first();
-      if (await searchInput.isVisible()) {
-        await searchInput.fill('headphones');
-        await searchInput.press('Enter');
-        await page.waitForLoadState('domcontentloaded');
-      }
-    }
+    // 2. Book consultation button
+    const bookConsultationButton = page.locator('button[id*="open-modal"]').first();
+    await bookConsultationButton.click();
 
-    // 3. Normal functional validation
-    const mainContent = page.locator('main').first();
-    await expect(mainContent).toBeVisible();
+    // Check popup shows up
+    const consultDialog = page.locator('dialog').first();
+    await expect(consultDialog).toBeVisible();
 
-    // That's it! Evinced lifecycle, report export, and quality gates run automatically in the background.
+    // Validate next button is available
+    const nextButton = page.locator('button[id*="next-to-step-2"]').first();
+    await expect(nextButton).toBeVisible();
   });
 
   test('Browse collections navigation flow', async ({ page, evinced }) => {
     await page.goto('/');
 
-    // Browse through navigation links
-    const navLinks = page.locator('header nav a, .header__inline-menu a');
-    const count = await navLinks.count();
+    // find catalog link
+    const catalogLink = page.locator('a:has-text("Catalog")').first();
+    await expect(catalogLink).toBeVisible();
+    await expect(catalogLink).toBeEnabled();
+    await catalogLink.click();
 
-    if (count > 0) {
-      const firstLink = navLinks.first();
-      const href = await firstLink.getAttribute('href');
-      if (href && !href.startsWith('http') && href !== '/') {
-        await firstLink.click();
-        await page.waitForLoadState('domcontentloaded');
-        await expect(page.locator('main')).toBeVisible();
-      }
-    }
+    // Validate navigation to catalog page
+    await page.waitForURL(/\/collections\//, { waitUntil: 'domcontentloaded' });
+    await expect(page.locator('h1').first()).toBeVisible();
   });
 });

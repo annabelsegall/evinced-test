@@ -9,20 +9,9 @@
     "test:flow": "playwright test tests/cart-flow.spec.js",
     "test:scale": "playwright test tests/scale-example.spec.js",
     "test:headed": "playwright test --headed",
-    "test:debug": "playwright test --debug",
-    "open-report": "node scripts/open-reports.js",
-    "open-reports": "node scripts/open-reports.js"
+    "test:debug": "playwright test --debug"
   },
-  "keywords": [
-    "evinced",
-    "playwright",
-    "accessibility",
-    "a11y",
-    "automation",
-    "wcag"
-  ],
-  "author": "",
-  "license": "ISC",
+  "author": "Annabel Segall",
   "devDependencies": {
     "@evinced/js-playwright-sdk": "latest",
     "@playwright/test": "^1.48.0",
