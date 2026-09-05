@@ -2,6 +2,10 @@
 
 This repository contains an automated accessibility testing solution built with the **Evinced Playwright JS Automation SDK** targeting the [a11y-audits.com](https://a11y-audits.com/) demo application.
 
+
+
+
+
 It demonstrates:
 1. **JFrog Artifactory Authentication** for restricted Evinced package distribution.
 2. **Two Core Evinced Analysis Modes**:
