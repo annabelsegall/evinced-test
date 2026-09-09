@@ -26,12 +26,12 @@ exports.test = base.extend({
     };
 
     console.log(`[Evinced Fixture] Auto-starting continuous evinced scan for: "${testInfo.title}"`);
-    await evincedService.evStart(scanConfig);
     evincedService.testRunInfo.addLabel({
       testName: testInfo.title,
       testFile: testInfo.file,
       environment: 'Test'
     })
+    await evincedService.evStart(scanConfig);
 
     // Pass the SDK instance to the test body
     await use(evincedService);
