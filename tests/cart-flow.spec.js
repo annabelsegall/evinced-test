@@ -43,7 +43,7 @@ test.describe('Interactive Shopping & Cart Flow Accessibility', () => {
     // STEP 1: START CONTINUOUS SCANNING
     // =========================================================================
     console.log('Starting Evinced continuous scanning (evStart)...');
-    await evincedService.evStart();
+    await evincedService.evStart({ scan: { withPasses: true } });
     // =========================================================================
     // STEP 2: NAVIGATE TO HOME PAGE
     // =========================================================================
